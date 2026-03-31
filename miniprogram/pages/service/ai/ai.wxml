@@ -1,0 +1,58 @@
+<view class="container">
+  <!-- 顶部状态栏 -->
+  <view class="top-bar" wx:if="{{messages.length > 0}}">
+    <text class="ai-badge">DeepSeek AI 驱动</text>
+    <text class="clear-btn" bindtap="clearChat">清空对话</text>
+  </view>
+
+  <!-- 聊天区域 -->
+  <scroll-view class="chat-area {{messages.length > 0 ? 'with-top-bar' : ''}}" scroll-y scroll-into-view="{{scrollToView}}" enhanced show-scrollbar="{{false}}">
+    <!-- 欢迎消息 -->
+    <view class="message-item ai" wx:if="{{messages.length === 0}}">
+      <image class="ai-avatar" src="/images/icons/ai-avatar.png" />
+      <view class="message-bubble">您好！我是由 DeepSeek AI 驱动的智能客服小智，可以回答您关于预订、房型、价格、会员等各种问题，请问有什么可以帮您？😊</view>
+    </view>
+    
+    <!-- 消息列表 -->
+    <view class="message-item {{item.role}}" wx:for="{{messages}}" wx:key="index" id="msg-{{index}}">
+      <image class="ai-avatar" src="/images/icons/ai-avatar.png" wx:if="{{item.role === 'ai'}}" />
+      <view class="message-bubble">{{item.content}}</view>
+    </view>
+
+    <!-- 正在输入 -->
+    <view class="message-item ai" wx:if="{{isTyping}}">
+      <image class="ai-avatar" src="/images/icons/ai-avatar.png" />
+      <view class="message-bubble">
+        <view class="typing-indicator">
+          <view class="typing-dot"></view>
+          <view class="typing-dot"></view>
+          <view class="typing-dot"></view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 快捷问题 -->
+  <view class="quick-questions" wx:if="{{messages.length === 0}}">
+    <text class="quick-title">您可能想问：</text>
+    <view class="quick-list">
+      <view class="quick-item" wx:for="{{quickQuestions}}" wx:key="index" bindtap="sendQuickQuestion" data-question="{{item}}">
+        {{item}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 输入区 -->
+  <view class="input-area">
+    <input 
+      class="input-field" 
+      placeholder="请输入您的问题" 
+      value="{{inputValue}}"
+      bindinput="onInput"
+      confirm-type="send"
+      bindconfirm="sendMessage"
+      always-embed="{{true}}"
+    />
+    <button class="send-btn {{inputValue ? '' : 'disabled'}}" bindtap="sendMessage" disabled="{{!inputValue}}">发送</button>
+  </view>
+</view>

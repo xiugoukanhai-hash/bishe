@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.TongzhiDao">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        a.id as id,
+        a.addtime as addtime,
+        a.userid as userid,
+        a.tablename as tablename,
+        a.title as title,
+        a.content as content,
+        a.type as type,
+        a.refid as refid,
+        a.reftable as reftable,
+        a.isread as isread,
+        a.readtime as readtime
+    </sql>
+
+    <select id="selectListView" resultType="com.entity.TongzhiEntity">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tongzhi a
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <select id="selectUnreadCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM tongzhi 
+        WHERE userid = #{userid} AND tablename = #{tablename} AND isread = 0
+    </select>
+
+</mapper>

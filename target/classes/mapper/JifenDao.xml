@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.JifenDao">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        a.id as id,
+        a.addtime as addtime,
+        a.huiyuanid as huiyuanid,
+        a.zhanghao as zhanghao,
+        a.jifenleixing as jifenleixing,
+        a.jifenshu as jifenshu,
+        a.yue as yue,
+        a.shuoming as shuoming,
+        a.guanliandingdan as guanliandingdan,
+        a.caozuoren as caozuoren
+    </sql>
+
+    <select id="selectListView" resultType="com.entity.JifenEntity">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM jifen a
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <select id="sumByHuiyuanId" resultType="java.lang.Integer">
+        SELECT COALESCE(SUM(jifenshu), 0) FROM jifen WHERE huiyuanid = #{huiyuanid}
+    </select>
+
+</mapper>

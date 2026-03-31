@@ -1,0 +1,74 @@
+<view class="container">
+  <!-- 余额卡片 -->
+  <view class="balance-card">
+    <view class="balance-info">
+      <text class="balance-label">当前余额</text>
+      <view class="balance-value">
+        <text class="currency">¥</text>
+        <text class="amount">{{balance}}</text>
+      </view>
+    </view>
+    <view class="member-info" wx:if="{{isMemberUser}}">
+      <text class="points-label">会员积分：{{points || 0}}</text>
+      <text class="bonus-tip">充值赠送5%积分</text>
+    </view>
+  </view>
+
+  <!-- 充值金额选择 -->
+  <view class="section">
+    <view class="section-title">选择充值金额</view>
+    <view class="amount-grid">
+      <view 
+        class="amount-item {{selectedAmount === item ? 'active' : ''}}" 
+        wx:for="{{amountOptions}}" 
+        wx:key="*this"
+        data-amount="{{item}}"
+        bindtap="selectAmount"
+      >
+        <text class="amount-text">¥{{item}}</text>
+        <text class="bonus-text" wx:if="{{isMemberUser}}">赠{{item * 0.05}}积分</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 自定义金额 -->
+  <view class="section">
+    <view class="section-title">自定义金额</view>
+    <view class="custom-input-wrap">
+      <text class="currency-prefix">¥</text>
+      <input 
+        class="custom-input" 
+        type="digit" 
+        placeholder="请输入充值金额（1-10000）" 
+        value="{{customAmount}}"
+        bindinput="onCustomAmountInput"
+      />
+    </view>
+  </view>
+
+  <!-- 充值说明 -->
+  <view class="tips-section">
+    <view class="tips-title">充值说明</view>
+    <view class="tips-content">
+      <text class="tip-item">1. 充值金额实时到账，可用于支付订单</text>
+      <text class="tip-item">2. 会员充值可获得5%积分奖励</text>
+      <text class="tip-item">3. 单次充值金额不超过10000元</text>
+      <text class="tip-item">4. 充值成功后不支持退款</text>
+    </view>
+  </view>
+
+  <!-- 充值按钮 -->
+  <view class="bottom-bar">
+    <view class="recharge-info">
+      <text class="recharge-label">充值金额：</text>
+      <text class="recharge-amount">¥{{customAmount || selectedAmount || 0}}</text>
+    </view>
+    <button 
+      class="recharge-btn {{(selectedAmount > 0 || customAmount) && !loading ? '' : 'disabled'}}" 
+      bindtap="doRecharge"
+      disabled="{{!(selectedAmount > 0 || customAmount) || loading}}"
+    >
+      {{loading ? '充值中...' : '立即充值'}}
+    </button>
+  </view>
+</view>

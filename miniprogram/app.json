@@ -1,0 +1,76 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/login/login",
+    "pages/login/forget",
+    "pages/register/register",
+    "pages/room/list/list",
+    "pages/room/detail/detail",
+    "pages/booking/confirm/confirm",
+    "pages/booking/pay/pay",
+    "pages/booking/result/result",
+    "pages/order/list/list",
+    "pages/order/detail/detail",
+    "pages/order/evaluate/evaluate",
+    "pages/user/index/index",
+    "pages/user/info/info",
+    "pages/user/password/password",
+    "pages/user/collect/collect",
+    "pages/user/points/points",
+    "pages/user/message/message",
+    "pages/user/recharge/recharge",
+    "pages/service/ai/ai",
+    "pages/service/chat/chat",
+    "pages/service/faq/faq",
+    "pages/news/list/list",
+    "pages/news/detail/detail"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#1989fa",
+    "navigationBarTitleText": "酒店住房管理",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f7f8fa",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#1989fa",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/tabbar/home.png",
+        "selectedIconPath": "images/tabbar/home-active.png"
+      },
+      {
+        "pagePath": "pages/room/list/list",
+        "text": "客房",
+        "iconPath": "images/tabbar/room.png",
+        "selectedIconPath": "images/tabbar/room-active.png"
+      },
+      {
+        "pagePath": "pages/order/list/list",
+        "text": "订单",
+        "iconPath": "images/tabbar/order.png",
+        "selectedIconPath": "images/tabbar/order-active.png"
+      },
+      {
+        "pagePath": "pages/user/index/index",
+        "text": "我的",
+        "iconPath": "images/tabbar/user.png",
+        "selectedIconPath": "images/tabbar/user-active.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents",
+  "style": "v2",
+  "usingComponents": {},
+  "resolveAlias": {
+    "@/*": "/*"
+  },
+  "debug": false
+}

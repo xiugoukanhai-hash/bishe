@@ -1,0 +1,47 @@
+.star-rating {
+  display: inline-flex;
+  align-items: center;
+}
+
+.star-item {
+  position: relative;
+  padding: 8rpx;
+}
+
+.star-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.star-bg {
+  color: #c8c9cc;
+  line-height: 1;
+}
+
+.star-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.rating-text {
+  font-weight: 500;
+}
+
+/* 禁用状态 */
+.star-rating.disabled .star-item {
+  cursor: default;
+}
+
+/* 触摸反馈 */
+.star-item:active {
+  opacity: 0.7;
+}
+
+.star-rating.readonly .star-item:active,
+.star-rating.disabled .star-item:active {
+  opacity: 1;
+}

@@ -1,0 +1,61 @@
+<!--
+  自定义导航栏组件
+-->
+<view 
+  class="navbar {{fixed ? 'fixed' : ''}} {{transparent ? 'transparent' : ''}}" 
+  style="padding-top: {{statusBarHeight}}px;"
+>
+  <view class="navbar-content" style="height: {{navBarHeight}}px;">
+    <!-- 左侧按钮区域 -->
+    <view class="navbar-left">
+      <!-- 返回按钮 -->
+      <view 
+        class="back-btn" 
+        wx:if="{{showBack}}" 
+        bindtap="onBack"
+      >
+        <image 
+          class="back-icon" 
+          src="{{backIcon || '/images/icons/arrow-left.png'}}" 
+          mode="aspectFit"
+        />
+      </view>
+      <!-- 首页按钮 -->
+      <view 
+        class="home-btn" 
+        wx:if="{{showHome}}" 
+        bindtap="onHome"
+      >
+        <image 
+          class="home-icon" 
+          src="{{homeIcon || '/images/icons/home-nav.png'}}" 
+          mode="aspectFit"
+        />
+      </view>
+      <!-- 左侧插槽 -->
+      <slot name="left"></slot>
+    </view>
+    
+    <!-- 标题区域 -->
+    <view class="navbar-title">
+      <text 
+        class="title-text" 
+        wx:if="{{title}}"
+        style="color: {{titleColor || '#ffffff'}};"
+      >{{title}}</text>
+      <slot name="title"></slot>
+    </view>
+    
+    <!-- 右侧区域 -->
+    <view class="navbar-right">
+      <slot name="right"></slot>
+    </view>
+  </view>
+</view>
+
+<!-- 占位高度 -->
+<view 
+  class="navbar-placeholder" 
+  wx:if="{{fixed && placeholder}}"
+  style="height: {{statusBarHeight + navBarHeight}}px;"
+></view>

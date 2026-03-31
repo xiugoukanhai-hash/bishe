@@ -1,0 +1,55 @@
+<view class="container">
+  <!-- 编辑模式栏 -->
+  <view class="edit-bar" wx:if="{{collectList.length > 0}}">
+    <view class="select-all" wx:if="{{isEditMode}}" bindtap="toggleSelectAll">
+      <checkbox class="checkbox" checked="{{isAllSelected}}" />
+      <text>全选</text>
+    </view>
+    <view wx:else></view>
+    <text class="edit-btn" bindtap="toggleEditMode">{{isEditMode ? '完成' : '编辑'}}</text>
+  </view>
+
+  <!-- 收藏列表 -->
+  <view class="collect-list" wx:if="{{collectList.length > 0}}">
+    <view class="collect-item" wx:for="{{collectList}}" wx:key="id">
+      <view class="item-checkbox" wx:if="{{isEditMode}}" bindtap="toggleSelect" data-index="{{index}}">
+        <checkbox checked="{{item.selected}}" />
+      </view>
+      <view class="room-card" bindtap="goRoomDetail" data-id="{{item.refid || item.kefangId || item.id}}">
+        <image class="room-image" src="{{item.imageUrl || '/images/default/room.png'}}" mode="aspectFill" />
+        <view class="room-info">
+          <text class="room-name">{{item.name || item.kefanghao || '客房'}}</text>
+          <text class="room-type">{{item.typename || item.kefangleixing || '标准房'}}</text>
+          <view class="room-price">
+            <text class="price-value">¥{{item.jiage || 0}}</text>
+            <text class="price-unit">/晚</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && collectList.length === 0}}">
+    <image class="empty-image" src="/images/default/empty-collect.png" mode="aspectFit" />
+    <text class="empty-text">暂无收藏</text>
+    <text class="empty-desc">快去收藏喜欢的房间吧</text>
+    <button class="empty-btn" bindtap="goRoomList">去逛逛</button>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar" wx:if="{{isEditMode && collectList.length > 0}}">
+    <view class="selected-info">
+      已选 <text class="selected-count">{{selectedCount}}</text> 项
+    </view>
+    <button class="delete-btn {{selectedCount > 0 ? '' : 'disabled'}}" bindtap="deleteSelected" disabled="{{selectedCount === 0}}">删除</button>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-mask" wx:if="{{loading}}">
+    <view class="loading-content">
+      <view class="loading-spinner"></view>
+      <text class="loading-text">加载中...</text>
+    </view>
+  </view>
+</view>

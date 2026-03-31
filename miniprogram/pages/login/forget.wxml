@@ -1,0 +1,72 @@
+<view class="container">
+  <view class="form-section">
+    <view class="section-title">找回密码</view>
+    <view class="section-desc">请输入注册时填写的账号和手机号进行验证</view>
+    
+    <view class="form-item">
+      <view class="form-label">账号</view>
+      <input 
+        class="form-input" 
+        placeholder="请输入账号" 
+        value="{{username}}"
+        bindinput="onUsernameInput"
+        always-embed="{{true}}"
+      />
+    </view>
+    
+    <view class="form-item">
+      <view class="form-label">手机号</view>
+      <input 
+        class="form-input" 
+        type="text"
+        maxlength="11"
+        placeholder="请输入手机号" 
+        value="{{phone}}"
+        bindinput="onPhoneInput"
+        always-embed="{{true}}"
+      />
+    </view>
+    
+    <view class="form-item" wx:if="{{step === 2}}">
+      <view class="form-label">新密码</view>
+      <input 
+        class="form-input" 
+        password="{{!showPassword}}"
+        placeholder="请输入新密码（6-20位）" 
+        value="{{newPassword}}"
+        bindinput="onNewPasswordInput"
+        always-embed="{{true}}"
+      />
+      <view class="password-toggle" bindtap="togglePassword">
+        <text>{{showPassword ? '隐藏' : '显示'}}</text>
+      </view>
+    </view>
+    
+    <view class="form-item" wx:if="{{step === 2}}">
+      <view class="form-label">确认密码</view>
+      <input 
+        class="form-input" 
+        password="{{!showPassword}}"
+        placeholder="请再次输入新密码" 
+        value="{{confirmPassword}}"
+        bindinput="onConfirmPasswordInput"
+        always-embed="{{true}}"
+      />
+    </view>
+  </view>
+  
+  <view class="btn-area">
+    <button 
+      class="btn btn-primary {{canSubmit ? '' : 'btn-disabled'}}" 
+      disabled="{{!canSubmit || submitting}}"
+      loading="{{submitting}}"
+      bindtap="onSubmit"
+    >
+      {{step === 1 ? '下一步' : '重置密码'}}
+    </button>
+  </view>
+  
+  <view class="footer-links">
+    <text class="link" bindtap="goLogin">返回登录</text>
+  </view>
+</view>

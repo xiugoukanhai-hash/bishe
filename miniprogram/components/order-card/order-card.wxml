@@ -1,0 +1,35 @@
+<!--
+  订单卡片组件
+-->
+<view class="order-card" bindtap="onClick">
+  <!-- 头部：状态 -->
+  <view class="order-header">
+    <text class="order-no">订单号: {{order.yuyuebianhao || order.id}}</text>
+    <text class="status-text {{statusClass}}">{{statusText}}</text>
+  </view>
+  
+  <!-- 内容区 -->
+  <view class="order-content">
+    <image class="room-image" src="{{imageUrl}}" mode="aspectFill" binderror="onImageError" />
+    <view class="order-info">
+      <text class="room-name">{{order.kefanghao || '房间'}}</text>
+      <text class="room-type">{{order.kefangleixing || '标准房'}}</text>
+      <text class="check-date">入住: {{displayCheckIn}} · {{nightCount || 1}}晚</text>
+    </view>
+  </view>
+  
+  <!-- 底部：价格和按钮 -->
+  <view class="order-footer">
+    <view class="price-area">
+      <text class="price-label">订单金额</text>
+      <text class="price-value">¥{{displayPrice}}</text>
+    </view>
+    <view class="action-area">
+      <button wx:if="{{showCancelBtn}}" class="btn btn-default" catchtap="onCancel">{{cancelBtnText}}</button>
+      <button wx:if="{{showPayBtn}}" class="btn btn-primary" catchtap="onPay">去支付</button>
+      <button wx:if="{{showEvaluateBtn}}" class="btn btn-primary" catchtap="onEvaluate">评价</button>
+      <button wx:if="{{showRebookBtn}}" class="btn btn-default" catchtap="onRebook">再次预订</button>
+      <button wx:if="{{!hasActions}}" class="btn btn-default" catchtap="onClick">查看详情</button>
+    </view>
+  </view>
+</view>

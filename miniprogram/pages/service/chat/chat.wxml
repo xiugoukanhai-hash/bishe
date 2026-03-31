@@ -1,0 +1,49 @@
+<view class="container">
+  <!-- 顶部操作栏 -->
+  <view class="top-bar">
+    <view class="tip-text">聊天记录已自动保存</view>
+    <view class="actions">
+      <text class="action-btn" bindtap="clearHistory">清空记录</text>
+      <text class="action-btn primary" bindtap="callPhone">电话客服</text>
+    </view>
+  </view>
+
+  <!-- 聊天区域 -->
+  <scroll-view class="chat-area" scroll-y scroll-into-view="{{scrollToView}}" enhanced show-scrollbar="{{false}}">
+    <!-- 消息列表 -->
+    <view class="message-item {{item.isSelf ? 'self' : 'other'}}" wx:for="{{messages}}" wx:key="id" id="msg-{{index}}">
+      <image class="avatar" src="{{item.isSelf ? (userInfo.touxiang || '/images/default/avatar.png') : '/images/icons/service-avatar.png'}}" mode="aspectFill" />
+      <view class="message-content">
+        <text class="message-name" wx:if="{{!item.isSelf}}">智能客服</text>
+        <view class="message-bubble">{{item.content}}</view>
+        <text class="message-time">{{item.time}}</text>
+      </view>
+    </view>
+    <!-- 正在输入提示 -->
+    <view class="message-item other typing-indicator" wx:if="{{isTyping}}">
+      <image class="avatar" src="/images/icons/service-avatar.png" mode="aspectFill" />
+      <view class="message-content">
+        <text class="message-name">智能客服</text>
+        <view class="message-bubble typing">
+          <text class="dot">.</text><text class="dot">.</text><text class="dot">.</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 输入区 -->
+  <view class="input-area">
+    <view class="input-wrapper">
+      <input 
+        class="input-field" 
+        placeholder="请输入消息" 
+        value="{{inputValue}}"
+        bindinput="onInput"
+        confirm-type="send"
+        bindconfirm="sendMessage"
+        always-embed="{{true}}"
+      />
+    </view>
+    <button class="send-btn {{inputValue ? '' : 'disabled'}}" bindtap="sendMessage" disabled="{{!inputValue}}">发送</button>
+  </view>
+</view>

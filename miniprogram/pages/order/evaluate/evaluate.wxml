@@ -1,0 +1,53 @@
+<view class="container">
+  <!-- 房间信息 -->
+  <view class="room-info">
+    <image class="room-image" src="{{orderInfo.imageUrl || '/images/default/room.png'}}" mode="aspectFill" />
+    <view class="room-detail">
+      <text class="room-name">{{orderInfo.kefanghao || '暂无'}}</text>
+      <text class="room-type">{{orderInfo.kefangleixing || '标准房'}}</text>
+    </view>
+  </view>
+
+  <!-- 评价表单 -->
+  <view class="evaluate-form">
+    <!-- 评分 -->
+    <view class="form-item">
+      <text class="form-label">整体评分</text>
+      <view class="rating-area">
+        <star-rating value="{{rating}}" size="48" bindchange="onRatingChange" />
+        <text class="rating-value">{{ratingText}}</text>
+      </view>
+    </view>
+
+    <!-- 评价内容 -->
+    <view class="form-item">
+      <text class="form-label">评价内容</text>
+      <textarea 
+        class="textarea" 
+        placeholder="请分享您的入住体验，帮助其他用户做出选择" 
+        maxlength="500"
+        value="{{content}}"
+        bindinput="onContentInput"
+      />
+      <text class="char-count">{{content.length}}/500</text>
+    </view>
+
+    <!-- 上传图片 -->
+    <view class="form-item">
+      <text class="form-label">上传图片（选填，最多3张）</text>
+      <view class="image-upload">
+        <view class="image-item" wx:for="{{images}}" wx:key="index">
+          <image class="upload-image" src="{{item}}" mode="aspectFill" />
+          <view class="delete-btn" bindtap="deleteImage" data-index="{{index}}">×</view>
+        </view>
+        <view class="add-image" wx:if="{{images.length < 3}}" bindtap="chooseImage">
+          <text class="add-icon">+</text>
+          <text class="add-text">添加图片</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <button class="submit-btn" bindtap="submitEvaluate">提交评价</button>
+</view>

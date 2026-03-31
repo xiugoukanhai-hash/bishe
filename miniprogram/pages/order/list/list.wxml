@@ -1,0 +1,79 @@
+<!--
+  订单列表页
+-->
+<view class="container">
+  <!-- 未登录提示 -->
+  <view class="not-login" wx:if="{{!isLoggedIn}}">
+    <empty 
+      type="empty-data"
+      text="请先登录"
+      description="登录后可查看您的订单"
+      showButton="{{true}}"
+      buttonText="去登录"
+      buttonType="primary"
+      bindbuttonclick="goLogin"
+    />
+  </view>
+  
+  <!-- 已登录内容 -->
+  <block wx:else>
+    <!-- Tab栏 -->
+    <view class="tab-bar">
+      <view 
+        class="tab-item {{currentTab === index ? 'active' : ''}}" 
+        wx:for="{{tabs}}" 
+        wx:key="index"
+        bindtap="switchTab"
+        data-index="{{index}}"
+      >
+        <text class="tab-text">{{item.name}}</text>
+        <view class="tab-line-inner" wx:if="{{currentTab === index}}"></view>
+      </view>
+    </view>
+    
+    <!-- 订单列表 -->
+    <scroll-view 
+      class="order-scroll"
+      scroll-y="{{true}}"
+      lower-threshold="100"
+      bindscrolltolower="loadMore"
+      refresher-enabled="{{true}}"
+      refresher-triggered="{{refreshing}}"
+      bindrefresherrefresh="onRefresh"
+    >
+      <view class="order-list">
+        <order-card 
+          wx:for="{{orderList}}" 
+          wx:key="id" 
+          order="{{item}}"
+          bindclick="goOrderDetail"
+          bindpay="onPayOrder"
+          bindcancel="onCancelOrder"
+          bindevaluate="goEvaluate"
+          bindrebook="onRebook"
+        />
+      </view>
+      
+      <!-- 加载更多 -->
+      <view class="load-more" wx:if="{{orderList.length > 0}}">
+        <loading wx:if="{{loadingMore}}" show="{{true}}" type="dots" text="加载中..." />
+        <text wx:elif="{{noMore}}" class="no-more-text">已经到底了</text>
+      </view>
+      
+      <!-- 空状态 -->
+      <empty 
+        wx:if="{{!loading && orderList.length === 0}}"
+        type="empty-order"
+        text="暂无订单"
+        description="快去预订心仪的客房吧"
+        showButton="{{true}}"
+        buttonText="去预订"
+        buttonType="primary"
+        bindbuttonclick="goRoomList"
+      />
+    </scroll-view>
+  </block>
+</view>
+
+<!-- 全局加载 -->
+<loading show="{{loading}}" fullscreen="{{true}}" text="加载中..." />

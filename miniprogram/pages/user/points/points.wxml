@@ -1,0 +1,70 @@
+<view class="container">
+  <!-- 积分卡片 -->
+  <view class="points-card">
+    <view class="points-header">
+      <text class="card-title">我的积分</text>
+      <text class="points-rules" bindtap="showRules">积分规则 ></text>
+    </view>
+    <view class="points-value">{{userInfo.jifen || 0}}</view>
+    <text class="points-label">可用积分</text>
+  </view>
+
+  <!-- 快捷操作 -->
+  <view class="quick-actions">
+    <view class="action-item" bindtap="goExchange">
+      <text class="action-icon">🎁</text>
+      <text class="action-text">积分兑换</text>
+    </view>
+    <view class="action-item" bindtap="goHistory">
+      <text class="action-icon">📋</text>
+      <text class="action-text">明细记录</text>
+    </view>
+    <view class="action-item" bindtap="goTask">
+      <text class="action-icon">✅</text>
+      <text class="action-text">赚取积分</text>
+    </view>
+  </view>
+
+  <!-- 积分明细 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">积分明细</text>
+      <text class="view-all" bindtap="goHistory">查看全部 ></text>
+    </view>
+    <view class="section-content">
+      <view class="record-item" wx:for="{{recentRecords}}" wx:key="id">
+        <view class="record-info">
+          <text class="record-title">{{item.title}}</text>
+          <text class="record-time">{{item.addtime}}</text>
+        </view>
+        <text class="record-value {{item.type === 'income' ? 'income' : 'expense'}}">
+          {{item.type === 'income' ? '+' : '-'}}{{item.points}}
+        </text>
+      </view>
+      <empty wx:if="{{recentRecords.length === 0}}" type="data" text="暂无积分记录" />
+    </view>
+  </view>
+
+  <!-- 积分任务 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">积分任务</text>
+    </view>
+    <view class="section-content">
+      <view class="task-item" wx:for="{{tasks}}" wx:key="id">
+        <view class="task-icon">{{item.icon}}</view>
+        <view class="task-info">
+          <text class="task-name">{{item.name}}</text>
+          <text class="task-desc">{{item.desc}}</text>
+        </view>
+        <text class="task-points">+{{item.points}}</text>
+        <button class="task-btn {{item.done ? 'done' : ''}}" catchtap="doTask" data-id="{{item.id}}" disabled="{{item.done}}">
+          {{item.done ? '已完成' : '去完成'}}
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <loading show="{{loading}}" />
+</view>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.QiantairenyuanDao">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        a.id as id,
+        a.addtime as addtime,
+        a.qiantaizhanghao as qiantaizhanghao,
+        a.mima as mima,
+        a.qiantaixingming as qiantaixingming,
+        a.xingbie as xingbie,
+        a.shouji as shouji,
+        a.ruzhishijian as ruzhishijian,
+        a.zhaopian as zhaopian,
+        a.zhuangtai as zhuangtai
+    </sql>
+
+    <select id="selectListView" resultType="com.entity.QiantairenyuanEntity">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM qiantairenyuan a
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <!-- 根据账号查询 -->
+    <select id="selectByZhanghao" resultType="com.entity.QiantairenyuanEntity">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM qiantairenyuan a
+        WHERE a.qiantaizhanghao = #{qiantaizhanghao}
+        LIMIT 1
+    </select>
+
+    <!-- 根据手机号查询 -->
+    <select id="selectByShouji" resultType="com.entity.QiantairenyuanEntity">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM qiantairenyuan a
+        WHERE a.shouji = #{shouji}
+        LIMIT 1
+    </select>
+
+    <!-- 统计指定状态的人员数量 -->
+    <select id="countByZhuangtai" resultType="int">
+        SELECT COUNT(*)
+        FROM qiantairenyuan
+        WHERE zhuangtai = #{zhuangtai}
+    </select>
+
+</mapper>

@@ -1,0 +1,59 @@
+<!--
+  房间卡片组件
+  展示客房列表项
+-->
+<view class="room-card {{mode === 'horizontal' ? 'horizontal' : 'vertical'}}" bindtap="onClick">
+  <!-- 房间图片 -->
+  <view class="room-image-wrapper">
+    <image 
+      class="room-image" 
+      src="{{imageUrl}}" 
+      mode="aspectFill"
+      lazy-load
+      binderror="onImageError"
+    />
+    <!-- 房间状态标签 -->
+    <view class="room-status-tag {{statusClass}}" wx:if="{{showStatus}}">
+      {{statusText}}
+    </view>
+    <!-- 收藏按钮 -->
+    <view class="collect-btn" wx:if="{{showCollect}}" catchtap="onCollectClick">
+      <image 
+        class="collect-icon" 
+        src="{{collected ? '/images/icons/heart-fill.png' : '/images/icons/heart.png'}}"
+      />
+    </view>
+  </view>
+  
+  <!-- 房间信息 -->
+  <view class="room-info">
+    <!-- 房间名称和类型 -->
+    <view class="room-header">
+      <text class="room-name">{{room.kefanghao || '房间'}}</text>
+      <text class="room-type-tag" wx:if="{{room.kefangleixing}}">{{room.kefangleixing}}</text>
+    </view>
+    
+    <!-- 房间标签 -->
+    <view class="room-tags" wx:if="{{tags.length > 0}}">
+      <text class="room-tag" wx:for="{{tags}}" wx:key="index">{{item}}</text>
+    </view>
+    
+    <!-- 设施标签 -->
+    <view class="room-facilities" wx:if="{{facilities.length > 0}}">
+      <text class="facility-tag" wx:for="{{facilities}}" wx:key="index">{{item}}</text>
+    </view>
+    
+    <!-- 底部信息：价格和状态 -->
+    <view class="room-footer">
+      <view class="room-price">
+        <text class="price-symbol">¥</text>
+        <text class="price-value">{{room.jiage || 0}}</text>
+        <text class="price-unit">/晚</text>
+        <text class="price-original" wx:if="{{room.yuanjia && room.yuanjia > room.jiage}}">¥{{room.yuanjia}}</text>
+      </view>
+      <view class="room-action" wx:if="{{showAction && statusClass === 'available'}}">
+        <text class="action-text">预订</text>
+      </view>
+    </view>
+  </view>
+</view>

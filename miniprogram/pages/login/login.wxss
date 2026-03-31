@@ -1,0 +1,159 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #1989fa 0%, #1989fa 35%, #f7f8fa 35%);
+  padding: 0 40rpx;
+}
+
+/* Logo区域 */
+.logo-section {
+  padding-top: 120rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  background-color: #ffffff;
+}
+
+.app-name {
+  font-size: 44rpx;
+  font-weight: 600;
+  color: #ffffff;
+  margin-top: 24rpx;
+}
+
+.app-desc {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 12rpx;
+}
+
+/* 表单区域 */
+.form-section {
+  background-color: #ffffff;
+  border-radius: 24rpx;
+  padding: 40rpx;
+  margin-top: 60rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.08);
+}
+
+/* 用户类型切换 */
+.user-type-tabs {
+  display: flex;
+  background-color: #f5f5f5;
+  border-radius: 40rpx;
+  padding: 6rpx;
+  margin-bottom: 40rpx;
+}
+
+.type-tab {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0;
+  font-size: 28rpx;
+  color: #666666;
+  border-radius: 36rpx;
+  transition: all 0.3s;
+}
+
+.type-tab.active {
+  background-color: #ffffff;
+  color: #1989fa;
+  font-weight: 500;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 表单组 */
+.form-group {
+  margin-bottom: 20rpx;
+}
+
+.form-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid #ebedf0;
+  padding: 24rpx 0;
+}
+
+.form-icon-text {
+  font-size: 36rpx;
+  margin-right: 20rpx;
+  width: 40rpx;
+  text-align: center;
+}
+
+.form-input {
+  flex: 1;
+  font-size: 30rpx;
+  color: #323233;
+}
+
+.clear-btn {
+  font-size: 36rpx;
+  color: #c8c9cc;
+  padding: 10rpx;
+}
+
+.eye-btn {
+  font-size: 32rpx;
+  color: #969799;
+  padding: 10rpx;
+}
+
+/* 登录按钮 */
+.login-btn {
+  width: 100%;
+  height: 88rpx;
+  line-height: 88rpx;
+  background: linear-gradient(135deg, #1989fa, #07c160);
+  color: #ffffff;
+  font-size: 32rpx;
+  font-weight: 500;
+  border-radius: 44rpx;
+  margin-top: 40rpx;
+  border: none;
+}
+
+.login-btn.disabled {
+  background: #c8c9cc;
+}
+
+.login-btn::after {
+  display: none;
+}
+
+/* 忘记密码 */
+.forget-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16rpx;
+  margin-bottom: 32rpx;
+}
+
+.forget-link {
+  font-size: 26rpx;
+  color: #1989fa;
+}
+
+/* 注册入口 */
+.register-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 32rpx;
+}
+
+.register-text {
+  font-size: 28rpx;
+  color: #969799;
+}
+
+.register-link {
+  font-size: 28rpx;
+  color: #1989fa;
+  margin-left: 8rpx;
+}

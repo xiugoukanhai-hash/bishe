@@ -1,0 +1,178 @@
+/* 搜索头部 */
+.search-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #ffffff;
+  padding: 16rpx 24rpx;
+  border-bottom: 1rpx solid #ebedf0;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #f7f8fa;
+  border-radius: 36rpx;
+  padding: 16rpx 24rpx;
+}
+
+.search-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.search-input {
+  flex: 1;
+  font-size: 28rpx;
+  color: #323233;
+}
+
+.clear-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-left: 16rpx;
+  flex-shrink: 0;
+}
+
+/* 筛选栏 */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 20rpx 24rpx;
+  border-bottom: 1rpx solid #ebedf0;
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  padding: 12rpx 24rpx;
+  margin-right: 24rpx;
+  font-size: 26rpx;
+  color: #646566;
+  background-color: #f7f8fa;
+  border-radius: 24rpx;
+}
+
+.filter-item.active {
+  color: #1989fa;
+  background-color: #e8f4ff;
+}
+
+.filter-arrow {
+  width: 24rpx;
+  height: 24rpx;
+  margin-left: 8rpx;
+  transition: transform 0.3s;
+}
+
+.filter-arrow.asc {
+  transform: rotate(180deg);
+}
+
+/* 房间滚动列表 */
+.room-scroll {
+  height: calc(100vh - 200rpx);
+}
+
+.room-list {
+  padding: 24rpx;
+}
+
+/* 加载更多 */
+.load-more {
+  display: flex;
+  justify-content: center;
+  padding: 32rpx 0;
+}
+
+.no-more-text {
+  font-size: 26rpx;
+  color: #969799;
+}
+
+/* 筛选弹窗 */
+.filter-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  visibility: hidden;
+}
+
+.filter-popup.show {
+  visibility: visible;
+}
+
+.popup-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.filter-popup.show .popup-mask {
+  opacity: 1;
+}
+
+.popup-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  border-radius: 0 0 24rpx 24rpx;
+  transform: translateY(-100%);
+  transition: transform 0.3s;
+}
+
+.filter-popup.show .popup-content {
+  transform: translateY(0);
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx;
+  border-bottom: 1rpx solid #ebedf0;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #323233;
+}
+
+.popup-reset {
+  font-size: 28rpx;
+  color: #1989fa;
+}
+
+.type-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 24rpx;
+}
+
+.type-item {
+  padding: 16rpx 32rpx;
+  margin: 12rpx;
+  font-size: 26rpx;
+  color: #646566;
+  background-color: #f7f8fa;
+  border-radius: 24rpx;
+}
+
+.type-item.active {
+  color: #1989fa;
+  background-color: #e8f4ff;
+}

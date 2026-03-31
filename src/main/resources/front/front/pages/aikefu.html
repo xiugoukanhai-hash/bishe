@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能客服 - 酒店住房管理系统</title>
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <style>
+        .chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            height: calc(100vh - 140px);
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .chat-avatar {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+        }
+        .chat-title {
+            flex: 1;
+        }
+        .chat-title h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .chat-title p {
+            margin: 4px 0 0;
+            font-size: 12px;
+            opacity: 0.85;
+        }
+        .chat-messages {
+            flex: 1;
+            background: #f8f9fa;
+            border-left: 1px solid #e9ecef;
+            border-right: 1px solid #e9ecef;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .message {
+            display: flex;
+            margin-bottom: 16px;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .message.bot {
+            justify-content: flex-start;
+        }
+        .message.user {
+            justify-content: flex-end;
+        }
+        .message-content {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        .message.bot .message-content {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            border-radius: 2px 12px 12px 12px;
+        }
+        .message.user .message-content {
+            background: #3498db;
+            color: #fff;
+            border-radius: 12px 2px 12px 12px;
+        }
+        .message-time {
+            font-size: 11px;
+            color: #999;
+            margin-top: 4px;
+        }
+        .message.bot .message-time {
+            text-align: left;
+        }
+        .message.user .message-time {
+            text-align: right;
+        }
+        .chat-input {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            padding: 16px;
+        }
+        .input-area {
+            display: flex;
+            gap: 12px;
+        }
+        .input-area input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 24px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .input-area input:focus {
+            border-color: #3498db;
+        }
+        .input-area button {
+            padding: 12px 24px;
+            background: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 24px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .input-area button:hover {
+            background: #2980b9;
+        }
+        .input-area button:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .quick-questions {
+            margin-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .quick-btn {
+            padding: 6px 12px;
+            background: #f1f3f5;
+            border: 1px solid #e9ecef;
+            border-radius: 16px;
+            font-size: 12px;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .quick-btn:hover {
+            background: #e9ecef;
+            border-color: #ddd;
+        }
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 12px 16px;
+        }
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: #3498db;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite;
+        }
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="chat-avatar">AI</div>
+            <div class="chat-title">
+                <h3>小智 - 智能客服</h3>
+                <p>在线为您服务</p>
+            </div>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+        </div>
+        
+        <div class="chat-input">
+            <div class="input-area">
+                <input type="text" id="questionInput" placeholder="请输入您的问题..." onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()" id="sendBtn">发送</button>
+            </div>
+            <div class="quick-questions" id="quickQuestions">
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script>
+        const chatMessages = document.getElementById('chatMessages');
+        const questionInput = document.getElementById('questionInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const quickQuestions = document.getElementById('quickQuestions');
+
+        const quickQuestionList = [
+            '酒店有哪些房型？',
+            '如何预订房间？',
+            '退房时间是几点？',
+            '有早餐吗？',
+            '可以延时退房吗？',
+            '转人工客服'
+        ];
+
+        function init() {
+            loadGreeting();
+            renderQuickQuestions();
+            loadHotQuestions();
+        }
+
+        function loadGreeting() {
+            API.get('/aikefu/greeting').then(res => {
+                if (res.code === 0 && res.greeting) {
+                    addMessage(res.greeting, 'bot');
+                } else {
+                    addMessage('您好！我是智能客服小智，很高兴为您服务。请问有什么可以帮您？', 'bot');
+                }
+            }).catch(() => {
+                addMessage('您好！我是智能客服小智，很高兴为您服务。请问有什么可以帮您？', 'bot');
+            });
+        }
+
+        function loadHotQuestions() {
+            API.get('/aikefu/hotQuestions').then(res => {
+                if (res.code === 0 && res.data && res.data.length > 0) {
+                    const hotList = res.data.slice(0, 4).map(item => item.wenti);
+                    renderQuickQuestions([...quickQuestionList.slice(0, 3), ...hotList.slice(0, 3)]);
+                }
+            }).catch(() => {});
+        }
+
+        function renderQuickQuestions(questions = quickQuestionList) {
+            quickQuestions.innerHTML = questions.map(q => 
+                `<span class="quick-btn" onclick="askQuestion('${q}')">${q}</span>`
+            ).join('');
+        }
+
+        function addMessage(content, type) {
+            const now = new Date();
+            const timeStr = now.getHours().toString().padStart(2, '0') + ':' + 
+                           now.getMinutes().toString().padStart(2, '0');
+            
+            const messageHtml = `
+                <div class="message ${type}">
+                    <div>
+                        <div class="message-content">${content}</div>
+                        <div class="message-time">${timeStr}</div>
+                    </div>
+                </div>
+            `;
+            chatMessages.insertAdjacentHTML('beforeend', messageHtml);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTyping() {
+            const typingHtml = `
+                <div class="message bot" id="typingIndicator">
+                    <div class="typing-indicator">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            `;
+            chatMessages.insertAdjacentHTML('beforeend', typingHtml);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTyping() {
+            const typing = document.getElementById('typingIndicator');
+            if (typing) typing.remove();
+        }
+
+        function askQuestion(question) {
+            questionInput.value = question;
+            sendMessage();
+        }
+
+        function sendMessage() {
+            const question = questionInput.value.trim();
+            if (!question) return;
+
+            addMessage(question, 'user');
+            questionInput.value = '';
+            sendBtn.disabled = true;
+            showTyping();
+
+            API.post('/aikefu/chat', { question: question }).then(res => {
+                hideTyping();
+                sendBtn.disabled = false;
+                if (res.code === 0 && res.answer) {
+                    addMessage(res.answer, 'bot');
+                } else {
+                    addMessage('抱歉，我暂时无法回答您的问题，请稍后再试或联系人工客服。', 'bot');
+                }
+            }).catch(err => {
+                hideTyping();
+                sendBtn.disabled = false;
+                addMessage('网络异常，请检查网络连接后重试。', 'bot');
+            });
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>

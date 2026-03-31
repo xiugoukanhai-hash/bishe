@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "酒店住房",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "usingComponents": {
+    "room-card": "/components/room-card/room-card",
+    "loading": "/components/loading/loading",
+    "empty": "/components/empty/empty"
+  }
+}

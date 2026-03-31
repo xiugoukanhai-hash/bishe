@@ -1,0 +1,31 @@
+<!--
+  评分组件
+  支持点击和半星评分
+-->
+<view class="star-rating" style="{{customStyle}}">
+  <view 
+    class="star-item" 
+    wx:for="{{stars}}" 
+    wx:key="index"
+    style="padding: {{gutter}}rpx;"
+    bindtap="onStarClick"
+    data-index="{{index}}"
+  >
+    <!-- 底层灰色星星 -->
+    <view class="star-wrapper" style="width: {{size}}rpx; height: {{size}}rpx;">
+      <view class="star-bg" style="font-size: {{size}}rpx;">{{icon}}</view>
+      <!-- 高亮星星覆盖层 -->
+      <view 
+        class="star-fill" 
+        style="width: {{item.percent}}%; font-size: {{size}}rpx; color: {{activeColor}};"
+      >{{icon}}</view>
+    </view>
+  </view>
+  
+  <!-- 评分文字 -->
+  <text 
+    class="rating-text" 
+    wx:if="{{showText}}" 
+    style="font-size: {{textSize}}rpx; color: {{textColor}}; margin-left: {{textGap}}rpx;"
+  >{{displayText}}</text>
+</view>

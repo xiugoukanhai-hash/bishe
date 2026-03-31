@@ -1,0 +1,49 @@
+<view class="container">
+  <!-- 消息类型筛选 -->
+  <view class="type-tabs">
+    <view 
+      class="type-tab {{currentType === item.key ? 'active' : ''}}" 
+      wx:for="{{types}}" 
+      wx:key="key"
+      bindtap="switchType"
+      data-type="{{item.key}}"
+    >{{item.name}}</view>
+  </view>
+
+  <!-- 消息列表 -->
+  <view class="message-list" wx:if="{{messageList.length > 0}}">
+    <view 
+      class="message-item {{item.isRead ? 'read' : ''}}" 
+      wx:for="{{messageList}}" 
+      wx:key="id"
+      bindtap="readMessage"
+      data-id="{{item.id}}"
+    >
+      <view class="message-header">
+        <view class="message-type">
+          <text class="type-tag">{{item.typeName}}</text>
+          <view class="unread-dot" wx:if="{{!item.isRead}}"></view>
+        </view>
+        <text class="message-time">{{item.time}}</text>
+      </view>
+      <text class="message-title">{{item.title}}</text>
+      <text class="message-content">{{item.content}}</text>
+      <view class="message-actions">
+        <text class="delete-btn" catchtap="deleteMessage" data-id="{{item.id}}">删除</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && messageList.length === 0}}">
+    <image class="empty-image" src="/images/default/empty-message.png" mode="aspectFit" />
+    <text class="empty-text">暂无消息</text>
+    <text class="empty-desc">您的消息会显示在这里</text>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">加载中...</text>
+  </view>
+</view>

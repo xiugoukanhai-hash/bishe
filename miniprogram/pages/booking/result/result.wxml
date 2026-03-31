@@ -1,0 +1,38 @@
+<view class="container">
+  <!-- 结果卡片 -->
+  <view class="result-card">
+    <view class="result-icon {{resultType}}">{{resultType === 'success' ? '✓' : '✕'}}</view>
+    <text class="result-title">{{resultType === 'success' ? '支付成功' : '支付失败'}}</text>
+    <text class="result-desc">{{resultType === 'success' ? '您的订单已支付成功' : '支付遇到问题，请重试'}}</text>
+  </view>
+
+  <!-- 订单信息 -->
+  <view class="order-info" wx:if="{{resultType === 'success'}}">
+    <view class="info-row">
+      <text class="info-label">订单编号</text>
+      <text class="info-value">{{orderNo || '--'}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">房间</text>
+      <text class="info-value">{{roomName || '--'}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">入住日期</text>
+      <text class="info-value">{{checkInDate || '--'}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">入住天数</text>
+      <text class="info-value">{{nights || 1}}晚</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">支付金额</text>
+      <text class="info-value highlight">¥{{totalAmount || 0}}</text>
+    </view>
+  </view>
+
+  <!-- 按钮区域 -->
+  <view class="btn-area">
+    <button class="btn btn-default" bindtap="goHome">返回首页</button>
+    <button class="btn btn-primary" bindtap="goOrderDetail">查看订单</button>
+  </view>
+</view>

@@ -1,0 +1,33 @@
+<view class="container">
+  <!-- 资讯列表 -->
+  <view class="news-list">
+    <view class="news-item" wx:for="{{newsList}}" wx:key="id" bindtap="goDetail" data-id="{{item.id}}">
+      <image class="news-image" src="{{item.imageUrl || '/images/default/news.png'}}" mode="aspectFill" />
+      <view class="news-content">
+        <text class="news-title">{{item.title || '暂无标题'}}</text>
+        <text class="news-desc">{{item.introduction || ''}}</text>
+        <view class="news-footer">
+          <text class="news-time">{{item.addtime}}</text>
+          <text class="news-views">{{item.clicknum || 0}}阅读</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && newsList.length === 0}}">
+    <image class="empty-image" src="/images/default/empty.png" mode="aspectFit" />
+    <text class="empty-text">暂无资讯</text>
+    <text class="empty-desc">敬请期待更多精彩内容</text>
+  </view>
+
+  <!-- 加载更多 -->
+  <view class="load-more" wx:if="{{newsList.length > 0}}">
+    <text wx:if="{{loading}}">加载中...</text>
+    <text wx:elif="{{noMore}}">没有更多了</text>
+    <text wx:else bindtap="loadMore">点击加载更多</text>
+  </view>
+
+  <!-- 加载状态 -->
+  <loading show="{{loading && newsList.length === 0}}" />
+</view>

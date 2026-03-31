@@ -1,0 +1,258 @@
+.container {
+  min-height: 100vh;
+  background-color: #f7f8fa;
+  padding-bottom: 140rpx;
+}
+
+/* 轮播图 */
+.room-swiper {
+  width: 100%;
+  height: 500rpx;
+}
+
+.swiper-image {
+  width: 100%;
+  height: 100%;
+}
+
+/* 房间基本信息 */
+.room-info {
+  background-color: #ffffff;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+}
+
+.room-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16rpx;
+}
+
+.room-name {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #323233;
+}
+
+.room-status {
+  font-size: 24rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 4rpx;
+}
+
+.room-status.available {
+  color: #07c160;
+  background-color: #e8fff3;
+}
+
+.room-status.occupied {
+  color: #ee0a24;
+  background-color: #fff0f0;
+}
+
+.room-type {
+  display: inline-block;
+  font-size: 24rpx;
+  color: #1989fa;
+  background-color: #e8f4ff;
+  padding: 4rpx 12rpx;
+  border-radius: 4rpx;
+  margin-bottom: 16rpx;
+}
+
+.room-price {
+  display: flex;
+  align-items: baseline;
+}
+
+.price-symbol {
+  font-size: 28rpx;
+  color: #ee0a24;
+}
+
+.price-value {
+  font-size: 48rpx;
+  font-weight: 600;
+  color: #ee0a24;
+  margin: 0 4rpx;
+}
+
+.price-unit {
+  font-size: 24rpx;
+  color: #969799;
+}
+
+.member-price {
+  margin-left: 16rpx;
+  font-size: 24rpx;
+  color: #ff976a;
+}
+
+/* 房间详情 */
+.section {
+  background-color: #ffffff;
+  margin-bottom: 24rpx;
+}
+
+.section-title {
+  padding: 24rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #323233;
+  border-bottom: 1rpx solid #ebedf0;
+}
+
+.section-content {
+  padding: 24rpx;
+}
+
+/* 房间参数 */
+.room-params {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.param-item {
+  width: 50%;
+  display: flex;
+  padding: 12rpx 0;
+}
+
+.param-label {
+  font-size: 26rpx;
+  color: #969799;
+  width: 120rpx;
+}
+
+.param-value {
+  font-size: 26rpx;
+  color: #323233;
+}
+
+/* 设施列表 */
+.facilities {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.facility-item {
+  display: flex;
+  align-items: center;
+  width: 33.33%;
+  padding: 16rpx 0;
+}
+
+.facility-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 8rpx;
+}
+
+.facility-name {
+  font-size: 26rpx;
+  color: #323233;
+}
+
+/* 房间介绍 */
+.room-intro {
+  font-size: 28rpx;
+  color: #646566;
+  line-height: 1.8;
+}
+
+/* 评价列表 */
+.review-item {
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.review-item:last-child {
+  border-bottom: none;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.reviewer-avatar {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  margin-right: 16rpx;
+}
+
+.reviewer-info {
+  flex: 1;
+}
+
+.reviewer-name {
+  font-size: 28rpx;
+  color: #323233;
+}
+
+.review-time {
+  font-size: 24rpx;
+  color: #969799;
+}
+
+.review-content {
+  font-size: 28rpx;
+  color: #646566;
+  line-height: 1.6;
+}
+
+/* 底部按钮 */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding: 16rpx 24rpx;
+  background-color: #ffffff;
+  box-shadow: 0 -4rpx 12rpx rgba(0, 0, 0, 0.05);
+  padding-bottom: calc(16rpx + env(safe-area-inset-bottom));
+}
+
+.action-btn {
+  width: 80rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 24rpx;
+}
+
+.action-icon {
+  font-size: 40rpx;
+  color: #646566;
+}
+
+.action-icon.collected {
+  color: #ee0a24;
+}
+
+.action-text {
+  font-size: 22rpx;
+  color: #646566;
+  margin-top: 4rpx;
+}
+
+.book-btn {
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #ffffff;
+  background: linear-gradient(135deg, #1989fa, #07c160);
+  border-radius: 40rpx;
+  text-align: center;
+}
+
+.book-btn.disabled {
+  background: #c8c9cc;
+}

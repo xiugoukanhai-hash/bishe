@@ -1,0 +1,55 @@
+<view class="container">
+  <!-- 搜索栏 -->
+  <view class="search-area">
+    <view class="search-bar">
+      <text class="search-icon">Q</text>
+      <input class="search-input" placeholder="搜索常见问题" value="{{searchKey}}" bindinput="onSearch" always-embed="{{true}}" />
+    </view>
+  </view>
+
+  <!-- 分类标签 -->
+  <scroll-view class="category-tabs" scroll-x enhanced show-scrollbar="{{false}}">
+    <view 
+      class="category-tab {{currentCategory === '' ? 'active' : ''}}" 
+      bindtap="switchCategory" 
+      data-category=""
+    >全部</view>
+    <view 
+      class="category-tab {{currentCategory === item.id ? 'active' : ''}}" 
+      wx:for="{{categories}}" 
+      wx:key="id"
+      bindtap="switchCategory"
+      data-category="{{item.id}}"
+    >{{item.name}}</view>
+  </scroll-view>
+
+  <!-- 问题列表 -->
+  <view class="faq-list" wx:if="{{faqList.length > 0}}">
+    <view class="faq-item" wx:for="{{faqList}}" wx:key="id">
+      <view class="faq-question" bindtap="toggleAnswer" data-index="{{index}}">
+        <view class="question-text">
+          <text class="question-icon">Q</text>
+          <text>{{item.question}}</text>
+        </view>
+        <text class="expand-icon {{item.expanded ? 'expanded' : ''}}">›</text>
+      </view>
+      <view class="faq-answer {{item.expanded ? 'show' : ''}}">
+        <text class="answer-icon">A</text>
+        <text>{{item.answer}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{faqList.length === 0}}">
+    <image class="empty-image" src="/images/default/empty-search.png" mode="aspectFit" />
+    <text class="empty-text">未找到相关问题</text>
+    <text class="empty-desc">试试其他关键词</text>
+  </view>
+
+  <!-- 联系客服 -->
+  <view class="contact-area">
+    <text class="contact-tip">没有找到答案？</text>
+    <button class="contact-btn" bindtap="goChat">联系人工客服</button>
+  </view>
+</view>

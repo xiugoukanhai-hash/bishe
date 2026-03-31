@@ -1,0 +1,53 @@
+.container {
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+.article-header {
+  padding: 32rpx 24rpx;
+  border-bottom: 1rpx solid #ebedf0;
+}
+
+.article-title {
+  font-size: 40rpx;
+  font-weight: 600;
+  color: #323233;
+  line-height: 1.5;
+  margin-bottom: 24rpx;
+}
+
+.article-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24rpx;
+  color: #969799;
+}
+
+.meta-time {
+  color: #969799;
+}
+
+.meta-views {
+  color: #969799;
+}
+
+.article-cover {
+  width: 100%;
+  height: 400rpx;
+}
+
+.article-content {
+  padding: 32rpx 24rpx;
+}
+
+.rich-text {
+  font-size: 30rpx;
+  color: #323233;
+  line-height: 1.8;
+}
+
+.rich-text image {
+  max-width: 100%;
+  height: auto;
+  margin: 16rpx 0;
+}

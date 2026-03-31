@@ -1,0 +1,73 @@
+<view class="container">
+  <!-- 支付金额 -->
+  <view class="pay-info">
+    <text class="pay-label">支付金额</text>
+    <view class="pay-amount">
+      <text class="currency">¥</text>
+      <text class="amount">{{totalAmount || 0}}</text>
+    </view>
+  </view>
+
+  <!-- 订单信息 -->
+  <view class="order-info" wx:if="{{orderInfo}}">
+    <view class="info-row">
+      <text class="info-label">订单编号</text>
+      <text class="info-value">{{orderInfo.yuyuebianhao || orderInfo.id}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">房间号</text>
+      <text class="info-value">{{orderInfo.kefanghao || '--'}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">入住日期</text>
+      <text class="info-value">{{orderInfo.ruzhushijian || '--'}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">入住天数</text>
+      <text class="info-value">{{orderInfo.tianshu || 1}}晚</text>
+    </view>
+  </view>
+
+  <!-- 支付方式 -->
+  <view class="pay-methods">
+    <view class="method-title">选择支付方式</view>
+    <view class="method-item {{payMethod === 'wechat' ? 'active' : ''}}" bindtap="selectMethod" data-method="wechat">
+      <view class="method-icon-wrap wechat">
+        <text class="icon-text">微</text>
+      </view>
+      <text class="method-name">微信支付</text>
+      <view class="method-check {{payMethod === 'wechat' ? 'checked' : ''}}">
+        <text wx:if="{{payMethod === 'wechat'}}">✓</text>
+      </view>
+    </view>
+    <view class="method-item {{payMethod === 'balance' ? 'active' : ''}} {{balance < totalAmount ? 'insufficient' : ''}}" bindtap="selectMethod" data-method="balance">
+      <view class="method-icon-wrap balance">
+        <text class="icon-text">余</text>
+      </view>
+      <view class="method-info">
+        <text class="method-name">余额支付</text>
+        <text class="balance-amount {{balance < totalAmount ? 'red' : ''}}">可用余额: ¥{{balance || 0}}</text>
+      </view>
+      <view class="method-check {{payMethod === 'balance' ? 'checked' : ''}}">
+        <text wx:if="{{payMethod === 'balance'}}">✓</text>
+      </view>
+    </view>
+    
+    <!-- 余额不足提示 -->
+    <view class="recharge-tip" wx:if="{{balance < totalAmount}}">
+      <text class="tip-text">余额不足，</text>
+      <text class="recharge-link" bindtap="goRecharge">去充值</text>
+    </view>
+  </view>
+
+  <!-- 支付按钮 -->
+  <view class="btn-area">
+    <button 
+      class="pay-btn {{paying ? 'disabled' : ''}}" 
+      bindtap="doPay"
+      disabled="{{paying}}"
+    >
+      {{paying ? '支付中...' : '确认支付 ¥' + (totalAmount || 0)}}
+    </button>
+  </view>
+</view>

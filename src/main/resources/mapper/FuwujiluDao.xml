@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.FuwujiluDao">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        a.id as id,
+        a.addtime as addtime,
+        a.dingdanbianhao as dingdanbianhao,
+        a.kefanghao as kefanghao,
+        a.fuwuleixing as fuwuleixing,
+        a.fuwuxiangqing as fuwuxiangqing,
+        a.fuwufeiyong as fuwufeiyong,
+        a.beizhu as beizhu,
+        a.dengjirenzhanghao as dengjirenzhanghao,
+        a.dengjishijian as dengjishijian,
+        a.chulirenzhanghao as chulirenzhanghao,
+        a.chulishijian as chulishijian,
+        a.zhuangtai as zhuangtai
+    </sql>
+
+    <select id="selectListView" resultType="com.entity.FuwujiluEntity">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM fuwujilu a
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+</mapper>

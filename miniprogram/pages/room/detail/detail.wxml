@@ -1,0 +1,105 @@
+<view class="container">
+  <!-- 轮播图 -->
+  <swiper class="room-swiper" indicator-dots autoplay circular>
+    <swiper-item wx:for="{{images}}" wx:key="index">
+      <image class="swiper-image" src="{{item}}" mode="aspectFill" />
+    </swiper-item>
+    <swiper-item wx:if="{{images.length === 0}}">
+      <image class="swiper-image" src="{{roomInfo.imageUrl || '/images/default/room.png'}}" mode="aspectFill" />
+    </swiper-item>
+  </swiper>
+
+  <!-- 房间基本信息 -->
+  <view class="room-info">
+    <view class="room-header">
+      <text class="room-name">{{roomInfo.kefanghao || '暂无'}}</text>
+      <text class="room-status {{statusClass}}">{{statusText}}</text>
+    </view>
+    <text class="room-type">{{roomInfo.kefangleixing || '标准房'}}</text>
+    <view class="room-price">
+      <text class="price-symbol">¥</text>
+      <text class="price-value">{{roomInfo.jiage || 0}}</text>
+      <text class="price-unit">/晚</text>
+      <text class="member-price" wx:if="{{memberPrice}}">会员价 ¥{{memberPrice}}</text>
+    </view>
+  </view>
+
+  <!-- 房间参数 -->
+  <view class="section">
+    <view class="section-title">房间参数</view>
+    <view class="section-content">
+      <view class="room-params">
+        <view class="param-item">
+          <text class="param-label">面积</text>
+          <text class="param-value">{{roomInfo.fangjianmianji || '--'}}</text>
+        </view>
+        <view class="param-item">
+          <text class="param-label">床型</text>
+          <text class="param-value">{{roomInfo.chuangxing || '--'}}</text>
+        </view>
+        <view class="param-item">
+          <text class="param-label">楼层</text>
+          <text class="param-value">{{roomInfo.louceng || '--'}}</text>
+        </view>
+        <view class="param-item">
+          <text class="param-label">状态</text>
+          <text class="param-value">{{roomInfo.weishengqingkuang || '--'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 房间特色 -->
+  <view class="section" wx:if="{{facilities.length > 0}}">
+    <view class="section-title">房间特色</view>
+    <view class="section-content">
+      <view class="facilities">
+        <view class="facility-item" wx:for="{{facilities}}" wx:key="index">
+          <text class="facility-tag">{{item}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 房间介绍 -->
+  <view class="section" wx:if="{{roomInfo.kefangjieshao}}">
+    <view class="section-title">房间介绍</view>
+    <view class="section-content">
+      <text class="room-intro">{{roomInfo.kefangjieshao}}</text>
+    </view>
+  </view>
+
+  <!-- 用户评价 -->
+  <view class="section" wx:if="{{reviews.length > 0}}">
+    <view class="section-title">用户评价（{{reviewCount}}）</view>
+    <view class="section-content">
+      <view class="review-item" wx:for="{{reviews}}" wx:key="index">
+        <view class="review-header">
+          <view class="reviewer-info">
+            <text class="reviewer-name">{{item.nickname || '匿名用户'}}</text>
+            <text class="review-time">{{item.addtime}}</text>
+          </view>
+          <view class="review-stars">
+            <text wx:for="{{item.stars}}" wx:key="index" wx:for-item="star">★</text>
+          </view>
+        </view>
+        <text class="review-content">{{item.content}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class="bottom-bar">
+    <view class="action-btn" bindtap="toggleCollect">
+      <text class="action-icon {{collected ? 'collected' : ''}}">{{collected ? '♥' : '♡'}}</text>
+      <text class="action-text">收藏</text>
+    </view>
+    <view class="action-btn" bindtap="contactService">
+      <text class="action-icon">💬</text>
+      <text class="action-text">客服</text>
+    </view>
+    <button class="book-btn {{statusClass === 'available' ? '' : 'disabled'}}" bindtap="goBooking" disabled="{{statusClass !== 'available'}}">
+      {{statusClass === 'available' ? '立即预订' : statusText}}
+    </button>
+  </view>
+</view>

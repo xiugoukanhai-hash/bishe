@@ -1,0 +1,50 @@
+<!--
+  加载组件
+  支持全屏遮罩加载和行内加载
+-->
+
+<!-- 全屏加载遮罩 -->
+<view class="loading-overlay" wx:if="{{show && fullscreen}}" catchtouchmove="preventTouchMove">
+  <view class="loading-content">
+    <!-- 加载动画 -->
+    <view class="loading-spinner {{type}}">
+      <!-- spinner类型 -->
+      <block wx:if="{{type === 'spinner'}}">
+        <view class="spinner-dot" wx:for="{{12}}" wx:key="index"></view>
+      </block>
+      <!-- circular类型 -->
+      <block wx:elif="{{type === 'circular'}}">
+        <view class="circular-ring"></view>
+      </block>
+      <!-- dots类型（默认） -->
+      <block wx:else>
+        <view class="dots-container">
+          <view class="bounce-dot" wx:for="{{3}}" wx:key="index"></view>
+        </view>
+      </block>
+    </view>
+    <!-- 加载文字 -->
+    <text class="loading-text" wx:if="{{text}}">{{text}}</text>
+  </view>
+</view>
+
+<!-- 行内加载 -->
+<view class="loading-inline" wx:elif="{{show && !fullscreen}}">
+  <view class="loading-spinner {{type}} inline" style="width: {{size}}rpx; height: {{size}}rpx;">
+    <!-- spinner类型 -->
+    <block wx:if="{{type === 'spinner'}}">
+      <view class="spinner-dot" wx:for="{{12}}" wx:key="index"></view>
+    </block>
+    <!-- circular类型 -->
+    <block wx:elif="{{type === 'circular'}}">
+      <view class="circular-ring" style="border-width: {{size / 16}}rpx;"></view>
+    </block>
+    <!-- dots类型（默认） -->
+    <block wx:else>
+      <view class="dots-container">
+        <view class="bounce-dot" wx:for="{{3}}" wx:key="index"></view>
+      </view>
+    </block>
+  </view>
+  <text class="loading-text inline" wx:if="{{text}}" style="color: {{textColor}};">{{text}}</text>
+</view>

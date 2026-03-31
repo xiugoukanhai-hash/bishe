@@ -1,0 +1,96 @@
+<view class="container">
+  <!-- 加载中 -->
+  <view class="loading-wrap" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <block wx:else>
+    <!-- 订单状态 -->
+    <view class="status-card {{statusClass}}">
+      <view class="status-icon">
+        <text wx:if="{{statusClass === 'pending'}}">⏳</text>
+        <text wx:elif="{{statusClass === 'paid'}}">✓</text>
+        <text wx:elif="{{statusClass === 'checkedin'}}">🏠</text>
+        <text wx:elif="{{statusClass === 'completed'}}">✓</text>
+        <text wx:elif="{{statusClass === 'refunding'}}">⏳</text>
+        <text wx:elif="{{statusClass === 'refunded'}}">💰</text>
+        <text wx:else>✕</text>
+      </view>
+      <text class="status-text">{{statusText}}</text>
+      <text class="status-desc">{{statusDesc}}</text>
+    </view>
+
+    <!-- 房间信息 -->
+    <view class="room-card">
+      <image class="room-image" src="{{orderInfo.imageUrl || '/images/default/room.png'}}" mode="aspectFill" />
+      <view class="room-detail">
+        <view class="room-header">
+          <text class="room-name">{{orderInfo.kefanghao || '暂无'}}</text>
+          <text class="room-type">{{orderInfo.kefangleixing || '标准房'}}</text>
+        </view>
+        <view class="date-info">
+          <text class="date-text">入住: {{orderInfo.displayCheckIn || '--'}}</text>
+          <text class="night-tag">{{nights}}晚</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 订单信息 -->
+    <view class="section">
+      <view class="section-title">订单信息</view>
+      <view class="section-content">
+        <view class="info-row">
+          <text class="info-label">订单编号</text>
+          <text class="info-value">{{orderInfo.yuyuebianhao || orderInfo.id}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">下单时间</text>
+          <text class="info-value">{{orderInfo.yuyueshijian || orderInfo.addtime || '--'}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">入住天数</text>
+          <text class="info-value">{{nights}}晚</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 入住人信息 -->
+    <view class="section">
+      <view class="section-title">入住人信息</view>
+      <view class="section-content">
+        <view class="info-row">
+          <text class="info-label">入住人</text>
+          <text class="info-value">{{orderInfo.xingming || '--'}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">联系电话</text>
+          <text class="info-value">{{orderInfo.shouji || '--'}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 价格明细 -->
+    <view class="section">
+      <view class="section-title">价格明细</view>
+      <view class="section-content">
+        <view class="price-row">
+          <text class="price-label">房费（{{nights}}晚）</text>
+          <text class="price-value">¥{{roomPrice}}</text>
+        </view>
+        <view class="price-row total">
+          <text class="price-label">实付金额</text>
+          <text class="price-value highlight">¥{{totalPrice}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部按钮 -->
+    <view class="bottom-bar" wx:if="{{hasActions}}">
+      <button class="btn btn-default" wx:if="{{showCancelBtn}}" bindtap="cancelOrder">取消订单</button>
+      <button class="btn btn-primary" wx:if="{{showPayBtn}}" bindtap="goPay">去支付</button>
+      <button class="btn btn-primary" wx:if="{{showEvaluateBtn}}" bindtap="goEvaluate">评价</button>
+      <button class="btn btn-default" wx:if="{{showRebookBtn}}" bindtap="rebook">再次预订</button>
+    </view>
+  </block>
+</view>

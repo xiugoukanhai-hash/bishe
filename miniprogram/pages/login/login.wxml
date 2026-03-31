@@ -1,0 +1,86 @@
+<!--
+  登录页 - 简化版
+-->
+<view class="container">
+  <!-- Logo区域 -->
+  <view class="logo-section">
+    <image class="logo" src="/images/logo.png" mode="aspectFit" />
+    <text class="app-name">酒店住房管理</text>
+    <text class="app-desc">为您提供舒适便捷的住宿体验</text>
+  </view>
+  
+  <!-- 登录表单 -->
+  <view class="form-section">
+    <!-- 用户类型切换 -->
+    <view class="user-type-tabs">
+      <view 
+        class="type-tab {{userType === 'user' ? 'active' : ''}}" 
+        bindtap="switchUserType" 
+        data-type="user"
+      >普通用户</view>
+      <view 
+        class="type-tab {{userType === 'member' ? 'active' : ''}}" 
+        bindtap="switchUserType" 
+        data-type="member"
+      >会员登录</view>
+    </view>
+    
+    <!-- 表单输入 -->
+    <view class="form-group">
+      <view class="form-item">
+        <text class="form-icon-text">👤</text>
+        <input 
+          class="form-input" 
+          type="text" 
+          placeholder="请输入用户名" 
+          value="{{username}}"
+          bindinput="onUsernameInput"
+          maxlength="20"
+          always-embed="{{true}}"
+        />
+        <text 
+          class="clear-btn" 
+          wx:if="{{username}}"
+          bindtap="clearUsername"
+        >×</text>
+      </view>
+      
+      <view class="form-item">
+        <text class="form-icon-text">🔒</text>
+        <input 
+          class="form-input" 
+          type="{{showPassword ? 'text' : 'password'}}" 
+          placeholder="请输入密码" 
+          value="{{password}}"
+          bindinput="onPasswordInput"
+          maxlength="20"
+          always-embed="{{true}}"
+        />
+        <text 
+          class="eye-btn" 
+          bindtap="togglePassword"
+        >{{showPassword ? '👁' : '👁‍🗨'}}</text>
+      </view>
+    </view>
+    
+    <!-- 登录按钮 -->
+    <button 
+      class="login-btn {{canSubmit ? '' : 'disabled'}}" 
+      bindtap="onLogin"
+      disabled="{{!canSubmit || submitting}}"
+    >
+      {{submitting ? '登录中...' : '登录'}}
+    </button>
+    
+    <!-- 忘记密码 -->
+    <view class="forget-row">
+      <text class="forget-link" bindtap="goForget">忘记密码?</text>
+    </view>
+    
+    <!-- 注册入口 -->
+    <view class="register-row">
+      <text class="register-text">还没有账号?</text>
+      <text class="register-link" bindtap="goRegister">立即注册</text>
+    </view>
+  </view>
+</view>

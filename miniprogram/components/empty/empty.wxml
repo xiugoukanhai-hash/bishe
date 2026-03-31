@@ -1,0 +1,30 @@
+<!--
+  空状态组件
+  用于展示列表为空、无数据等状态
+-->
+<view class="empty-container" style="padding-top: {{paddingTop}}rpx; padding-bottom: {{paddingBottom}}rpx;">
+  <!-- 图片 -->
+  <image 
+    class="empty-image" 
+    src="{{imageSrc}}" 
+    mode="aspectFit"
+    style="width: {{imageSize}}rpx; height: {{imageSize}}rpx;"
+  />
+  
+  <!-- 主提示文字 -->
+  <text class="empty-text">{{text}}</text>
+  
+  <!-- 副提示文字 -->
+  <text class="empty-desc" wx:if="{{description}}">{{description}}</text>
+  
+  <!-- 操作按钮 -->
+  <button 
+    wx:if="{{showButton}}" 
+    class="empty-button {{buttonType === 'primary' ? 'empty-button-primary' : 'empty-button-default'}}"
+    hover-class="empty-button-hover"
+    bindtap="onButtonClick"
+  >{{buttonText}}</button>
+  
+  <!-- 自定义插槽 -->
+  <slot></slot>
+</view>

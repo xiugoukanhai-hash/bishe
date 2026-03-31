@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "预订确认",
+  "usingComponents": {
+    "room-card": "/components/room-card/room-card"
+  }
+}
